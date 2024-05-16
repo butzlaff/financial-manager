@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import 'express-async-errors';
+import routes from './routes';
 
 class App {
   public app: express.Express;
@@ -11,6 +12,8 @@ class App {
     this.config();
 
     this.configureCookies();
+
+    this.routes();
 
     this.app.get('/', (req, res) => res.json({ status: 'Server are running' }));
   }
@@ -36,6 +39,10 @@ class App {
         origin: ['http://localhost:3000'],
       })
     );
+  }
+
+  private routes(): void {
+    this.app.use(routes);
   }
 
   public start(PORT: string | number): void {
