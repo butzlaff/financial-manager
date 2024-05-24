@@ -1,19 +1,12 @@
 import { Request, Response } from 'express';
-import { prisma } from '../utils/prisma';
+import { CategoryService } from '../services/Category.service';
 
 export class CategoryController {
+  constructor(private categoryService: CategoryService = new CategoryService()) { }
   async Create(req: Request, res: Response): Promise<Response> {
     const body = req.body;
 
-    const user = await prisma.category.create({
-      data: {
-        name: body.name,
-        description: body.description,
-        user: { connect: { id: body.userId } },
-        expenses: { create: body.expenses },
-      },
-    });
-
-    return res.status(201).json(user);
+    const category = await this.categoryService.Create(body);
+    return res.status(201).json(category);
   }
 }
