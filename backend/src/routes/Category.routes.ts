@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { UserController } from '../controllers/User.controller';
+import { CategoryController } from '../controllers/Category.controller';
 
 const router = Router();
 
-const userController = new UserController();
+const userController = new CategoryController();
 
 router.post('/', userController.Create);
 
