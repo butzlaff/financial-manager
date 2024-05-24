@@ -1,10 +1,12 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { CategoryController } from '../controllers/Category.controller';
 
 const router = Router();
 
-const userController = new CategoryController();
+const categoryController = new CategoryController();
 
-router.post('/', userController.Create);
+router.get('/', (_req: Request, res: Response) => categoryController.FindAll(_req, res));
+router.get('/:id', (_req: Request, res: Response) => categoryController.FindById(_req, res));
+router.post('/', (req: Request, res: Response) => categoryController.Create(req, res));
 
 export default router;

@@ -1,9 +1,9 @@
-import { Category, CategoryCreated } from '../types/Category';
+import { Category, CategoryCreation } from '../types/Category';
 import { prisma } from '../utils/prisma';
 
 
-export class CategoryModel {
-  async Create(category: Category): Promise<CategoryCreated> {
+export default class CategoryModel {
+  public async Create(category: CategoryCreation): Promise<Category> {
     const categoryCreated = await prisma.category.create({
       data: {
         name: category.name,
@@ -30,7 +30,7 @@ export class CategoryModel {
     return category;
   }
 
-  async Update(id: number, category: Category): Promise<Category | null> {
+  async Update(id: number, category: CategoryCreation): Promise<CategoryCreation | null> {
     const categoryUpdated = await prisma.category.update({
       where: {
         id,
@@ -43,7 +43,7 @@ export class CategoryModel {
     return categoryUpdated;
   }
 
-  async Delete(id: number): Promise<Category | null> {
+  async Delete(id: number): Promise<CategoryCreation | null> {
     const categoryDeleted = await prisma.category.delete({
       where: {
         id,
