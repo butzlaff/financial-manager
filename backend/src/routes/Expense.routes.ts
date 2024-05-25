@@ -1,10 +1,10 @@
-import { Router } from 'express';
-import { UserController } from '../controllers/User.controller';
+import { Request, Response, Router } from 'express';
+import ExpenseController from '../controllers/Expense.controller';
 
 const router = Router();
 
-const userController = new UserController();
+const expenseController = new ExpenseController();
 
-router.post('/', userController.Create);
+router.post('/', (req: Request, res: Response) => expenseController.Create(req, res));
 
 export default router;

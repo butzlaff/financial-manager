@@ -3,7 +3,7 @@ import CategoryService from '../services/Category.service';
 
 export class CategoryController {
   constructor(
-    private categoryService: CategoryService = new CategoryService()
+    private readonly categoryService: CategoryService = new CategoryService()
   ) { }
 
   async Create(req: Request, res: Response): Promise<Response> {
