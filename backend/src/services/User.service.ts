@@ -12,4 +12,10 @@ export class UserService {
 
     return userCreated;
   }
+
+  async Login(user: User): Promise<User | null> {
+    const userLogged = await this.userModel.Login(user);
+
+    return userLogged;
+  }
 }

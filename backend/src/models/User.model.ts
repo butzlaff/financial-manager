@@ -15,4 +15,15 @@ export class UserModel {
 
     return userCreated;
   }
+
+  async Login(user: Pick<User, 'email' | 'password'>): Promise<User | null> {
+    const userLogged = await prisma.user.findFirst({
+      where: {
+        email: user.email,
+        password: user.password,
+      },
+    });
+
+    return userLogged;
+  }
 }

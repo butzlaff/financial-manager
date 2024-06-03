@@ -13,4 +13,12 @@ export class UserController {
 
     return res.status(201).json(user);
   }
+
+  async Login(req: Request, res: Response): Promise<Response> {
+    const body = req.body;
+
+    const user = await this.userService.Login(body);
+
+    return res.status(200).json(user);
+  }
 }
