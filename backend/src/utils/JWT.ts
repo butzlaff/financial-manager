@@ -13,7 +13,7 @@ export type TokenJWT = {
   exp: number;
 } | null;
 export default class JWT {
-  private static secret: Secret = process.env.JWT_SECRET || 'jwt_secret';
+  private static secret: Secret = process.env.JWT_SECRET || 'mysecret';
 
   private static jwtConfig: SignOptions = {
     algorithm: 'HS256',
@@ -24,11 +24,11 @@ export default class JWT {
     return sign(payload, JWT.secret, JWT.jwtConfig);
   }
 
-  static verify(token: string): JwtPayload | string {
+  static verify(token: string): JwtPayload | null {
     try {
       return verify(token, JWT.secret) as JwtPayload;
     } catch (e) {
-      return 'Token must be a valid token';
+      return null;
     }
   }
 
