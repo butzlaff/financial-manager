@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import 'express-async-errors';
+import ErrorHandler from './middlewares/ErrorHandler';
 import routes from './routes';
 
 class App {
@@ -15,7 +16,10 @@ class App {
 
     this.routes();
 
-    this.app.get('/', (req, res) => res.json({ status: 'Server are running' }));
+    this.app.get('/', (_req, res) => res.json({ status: 'Server are running' }));
+
+    this.middlewares();
+
   }
 
   private config(): void {
@@ -39,6 +43,10 @@ class App {
         origin: ['http://localhost:3000'],
       })
     );
+  }
+
+  private middlewares(): void {
+    this.app.use(ErrorHandler)
   }
 
   private routes(): void {

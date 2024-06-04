@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { UnauthorizedError } from '../errors/ApiError';
 import { UserService } from '../services/User.service';
 
 export class UserController {
@@ -17,8 +18,10 @@ export class UserController {
   async Login(req: Request, res: Response): Promise<Response> {
     const body = req.body;
 
-    const user = await this.userService.Login(body);
+    const token = await this.userService.Login(body);
 
-    return res.status(200).json(user);
+    if (!token) throw new UnauthorizedError('Invalid email or password');
+
+    return res.status(200).json({ token });
   }
 }
